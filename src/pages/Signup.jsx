@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
-import { useCookies } from 'react-cookie';
 
 export default function Signup(props) {
 
@@ -12,8 +11,7 @@ export default function Signup(props) {
     const [password, setPassword] = useState("");
     const [conPassword, setConPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
-    
+
     // Navigate
     const navigate = useNavigate();
 

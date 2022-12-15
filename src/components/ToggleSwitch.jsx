@@ -1,5 +1,5 @@
 import "../styles/ToggleSwitch.css";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ToggleSwitch = ({ label }) => {

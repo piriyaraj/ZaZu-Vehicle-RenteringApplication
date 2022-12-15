@@ -31,7 +31,7 @@ export default function Login(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Register")
-        if (handleValidation) {
+        if (handleValidation()) {
             const { data } = await axios.post(
                 loginRoute,
                 {
@@ -56,13 +56,13 @@ export default function Login(props) {
 
       // Handle the validations
     const handleValidation = () => {
-    if (email.length ==="") {
-        toast.error("Username and Password is required!", toastOptions);
+    if (email === "") {
+        toast.error("Email and Password is required!", toastOptions);
         return false;
     }
     else if (password === "") {
         console.log("validation", toast);
-        toast.error("Username and Password is required!", toastOptions);
+        toast.error("Email and Password is required!", toastOptions);
         return false;
     }
     else {
