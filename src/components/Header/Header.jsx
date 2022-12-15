@@ -4,6 +4,8 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import ToggleSwitch from "../ToggleSwitch";
+import Logout from "../LogOut"
+
 const navLinks = [
   {
     path: "/home",
@@ -98,7 +100,7 @@ const Header = (props) => {
                     </Link>
                   )}
                   {" "}
-                  
+                  {isLoggedIn && <Logout/>}{" "}
                   </div>{" "}
                 </Col>{" "}
               </Row>{" "}
