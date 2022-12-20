@@ -5,7 +5,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
 import ToggleSwitch from "../ToggleSwitch";
 import Logout from "../LogOut";
-import Logout from "../LogOut";
 const navLinks = [
   {
     path: "/home",
@@ -83,12 +82,9 @@ const Header = (props) => {
                   {!isLoggedIn && (
                     <Link
                       to="/login"
-                      className=" d-flex align-items-center gap-2" 
+                      className=" d-flex align-items-center gap-2"
                     >
                       <i className="ri-login-circle-line"> </i> Login{" "}
-                    </Link>
-                  )}{" "}
-                      <i className="ri-login-circle-line" > </i> Login{" "}
                     </Link>
                   )}{" "}
                   {!isLoggedIn && (
@@ -98,11 +94,23 @@ const Header = (props) => {
                     >
                       <i className="ri-user-line"> </i> Register{" "}
                     </Link>
+                  )}
+                  {"  "}
+                  {isLoggedIn && (
+                    <div className=" d-flex align-items-center gap-2"></div>
+                  )}
+                  {"  "}
+                  {isLoggedIn && (
+                    <Logout
+                      isLoggedIn={props.isLoggedIn}
+                      setIsLoggedIn={props.setIsLoggedIn}
+                    />
                   )}{" "}
                 </div>{" "}
               </Col>{" "}
             </Row>{" "}
           </div>{" "}
+          {/* ================Register and Login Ends======================*/}{" "}
         </div>{" "}
       </Container>{" "}
     </div>
