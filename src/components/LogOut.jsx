@@ -3,23 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { BiPowerOff } from "react-icons/bi";
 import axios from "axios";
 import { logoutRoute } from "../utils/APIRoutes";
+import styled from "styled-components";
 
-
-export default function Logout() {
+export default function Logout(props) {
+  
   const navigate = useNavigate();
+
   const handleClick = async () => {
-    const id = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    )._id;
-    const data = await axios.get(`${logoutRoute}/${id}`);
-    if (data.status === 200) {
-      localStorage.clear();
-      navigate("/");
-    }
+    localStorage.clear();
+    navigate("/login");
   };
   return (
     <Button onClick={handleClick}>
       <BiPowerOff />
+      logOut{"  "}
     </Button>
   );
 }
@@ -30,9 +27,10 @@ const Button = styled.button`
   align-items: center;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: #9a86f3;
+  background-color: red;
   border: none;
   cursor: pointer;
+  color: whitesmoke;
   svg {
     font-size: 1.3rem;
     color: #ebe7ff;

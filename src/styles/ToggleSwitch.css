@@ -42,17 +42,17 @@
 }
 
 .inner:before {
-    content: "YES";
+    content: "SELL";
     padding-left: 10px;
     background-color: #060;
     color: #fff;
 }
 
 .inner:after {
-    content: "NO";
+    content: "BUY";
     padding-right: 10px;
     background-color: #bbb;
-    color: #fff;
+    color:  #060;
     text-align: right;
 }
 

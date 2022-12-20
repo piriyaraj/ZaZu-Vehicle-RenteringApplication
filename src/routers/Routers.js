@@ -17,7 +17,7 @@ import AddNewVehicle from "../pages/AddNewVehicle";
 
 const Routers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedInUser, setLoggedInUser] =useState(null);
+  const [loggedInUser, setLoggedInUser] =useState("");
 
   return (
     <Routes>

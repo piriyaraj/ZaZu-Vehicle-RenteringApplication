@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {  useRef,useState,useEffect } from "react";
 
 import { Container, Row, Col } from "reactstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
 import ToggleSwitch from "../ToggleSwitch";
-import Logout from "../LogOut"
-
+import Logout from "../LogOut";
 const navLinks = [
   {
     path: "/home",
@@ -25,19 +24,22 @@ const navLinks = [
   },
 ];
 
-
 const Header = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const menuRef = useRef(null);
-
-  const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn)
+  const toggleMenu = () => menuRef.current.classList.toggle("menu__active"); 
+  console.log(isLoggedIn)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-      setIsLoggedIn(true);
+    if (localStorage.getItem("zazu")) {
+      setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false)
     }
-  }, []);
-  
+  },[navigate]);
+
+
   return (
     <div className="main__navbar">
       <Container>
@@ -73,24 +75,24 @@ const Header = (props) => {
             </div>{" "}
           </div>{" "}
           {/* ================Register and Login ======================*/}{" "}
-
-          
-            <div className="Register_login">
-              <Row>
-                <Col lg="6" md="6" sm="6">
-                  <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+          <div className="Register_login">
+            
+            <Row>
+              <Col lg="6" md="6" sm="6">
+                <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+                  {isLoggedIn && (
                     <ToggleSwitch
-                      onClick={console.log("hello")}
                       label="pagetoggle"
-                  />
+                    />
+                  )}
                   {!isLoggedIn && (
                     <Link
                       to="/login"
-                      className=" d-flex align-items-center gap-2"
+                      className=" d-flex align-items-center gap-2" 
                     >
-                      <i className="ri-login-circle-line"> </i> Login{" "}
-                    </Link>)}
-                  {" "}
+                      <i className="ri-login-circle-line" > </i> Login{" "}
+                    </Link>
+                  )}{" "}
                   {!isLoggedIn && (
                     <Link
                       to="/signup"
@@ -98,18 +100,27 @@ const Header = (props) => {
                     >
                       <i className="ri-user-line"> </i> Register{" "}
                     </Link>
-                  )}
-                  {" "}
-                  {isLoggedIn && <Logout/>}{" "}
-                  </div>{" "}
-                </Col>{" "}
-              </Row>{" "}
-            </div>
-          
+                  )}{"  "}
+                  {isLoggedIn && (
+                    <div
+                      className=" d-flex align-items-center gap-2"
+                    >
+                    </div>
+                  )}{"  "}
 
-            {" "}
+                  {isLoggedIn &&
+                    <Logout
+                    isLoggedIn={props.isLoggedIn}
+                    setIsLoggedIn = {props.setIsLoggedIn}
+                  />
+                    }{" "}
+                </div>{" "}
+                
+              </Col>{" "}
+            </Row>{" "}
+          </div>{" "}
+          {/* ================Register and Login Ends======================*/}{" "}
         </div>{" "}
-      
       </Container>{" "}
     </div>
   );

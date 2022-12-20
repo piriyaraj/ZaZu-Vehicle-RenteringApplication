@@ -13,11 +13,12 @@ export default function Login(props) {
     const navigate = useNavigate()
     
 
-    useEffect(() => {
-        if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-            navigate("/");
-        }
-    }, []);
+// Login if user data in the local storage
+useEffect(() => {
+    if (localStorage.getItem('zazu')) {
+    navigate('/')
+    }
+}, []);
 
         // Tosting option
         const toastOptions = {
@@ -43,11 +44,9 @@ export default function Login(props) {
                 toast.error(data.msg, toastOptions);
             }
             if (data.success === true) {
-                localStorage.setItem(
-                    process.env.REACT_APP_LOCALHOST_KEY,
-                    JSON.stringify(data.user)
-                );
-                // props.setIsLoggedIn(true);
+                localStorage.setItem('zazu', JSON.stringify(data.user));
+                props.setIsLoggedIn(true);
+                props.setLoggedInUser(email);
                 console.log("Successfully Signedup")
                 navigate("/");
             }

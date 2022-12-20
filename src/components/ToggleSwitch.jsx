@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 const ToggleSwitch = ({ label }) => {
   const [userType, setUserType] = useState("buyer");
   const navigate = useNavigate();
+
   function handleToggele() {
+    
     if (userType == "buyer") {
       setUserType("seller");
       navigate("/seller");
-    } else {
+    }
+    else {
       setUserType("buyer");
       navigate("/home");
     }
@@ -21,7 +24,7 @@ const ToggleSwitch = ({ label }) => {
       {" "}
       <div className="toggle-switch">
         <input
-          onClick={handleToggele}
+          onClick={(event)=>handleToggele(event)}
           type="checkbox"
           className="checkbox"
           name={label}
