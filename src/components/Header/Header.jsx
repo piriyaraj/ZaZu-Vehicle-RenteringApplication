@@ -1,9 +1,10 @@
-import React, {  useRef,useState,useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
 import ToggleSwitch from "../ToggleSwitch";
+import Logout from "../LogOut";
 import Logout from "../LogOut";
 const navLinks = [
   {
@@ -26,19 +27,18 @@ const navLinks = [
 
 const Header = (props) => {
   const menuRef = useRef(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn)
-  const toggleMenu = () => menuRef.current.classList.toggle("menu__active"); 
-  console.log(isLoggedIn)
-  const navigate = useNavigate()
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
+  const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+  console.log(isLoggedIn);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("zazu")) {
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false)
+      setIsLoggedIn(false);
     }
-  },[navigate]);
-
+  }, [navigate]);
 
   return (
     <div className="main__navbar">
@@ -76,20 +76,18 @@ const Header = (props) => {
           </div>{" "}
           {/* ================Register and Login ======================*/}{" "}
           <div className="Register_login">
-            
             <Row>
               <Col lg="6" md="6" sm="6">
                 <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                  {isLoggedIn && (
-                    <ToggleSwitch
-                      label="pagetoggle"
-                    />
-                  )}
+                  {isLoggedIn && <ToggleSwitch label="pagetoggle" />}
                   {!isLoggedIn && (
                     <Link
                       to="/login"
                       className=" d-flex align-items-center gap-2" 
                     >
+                      <i className="ri-login-circle-line"> </i> Login{" "}
+                    </Link>
+                  )}{" "}
                       <i className="ri-login-circle-line" > </i> Login{" "}
                     </Link>
                   )}{" "}
@@ -100,26 +98,11 @@ const Header = (props) => {
                     >
                       <i className="ri-user-line"> </i> Register{" "}
                     </Link>
-                  )}{"  "}
-                  {isLoggedIn && (
-                    <div
-                      className=" d-flex align-items-center gap-2"
-                    >
-                    </div>
-                  )}{"  "}
-
-                  {isLoggedIn &&
-                    <Logout
-                    isLoggedIn={props.isLoggedIn}
-                    setIsLoggedIn = {props.setIsLoggedIn}
-                  />
-                    }{" "}
+                  )}{" "}
                 </div>{" "}
-                
               </Col>{" "}
             </Row>{" "}
           </div>{" "}
-          {/* ================Register and Login Ends======================*/}{" "}
         </div>{" "}
       </Container>{" "}
     </div>
