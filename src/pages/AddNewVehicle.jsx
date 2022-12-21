@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { registerRoute } from "../utils/APIRoutes";
+import { addVehicle } from "../utils/APIRoutes";
 import { useNavigate, Link } from "react-router-dom";
 
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 
-export default function AddNewVehicle() {
+export default function AddNewVehicle(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [vehicleType, setVehicleType] = useState("");
   const [millage, setMillage] = useState("");
   const [capacity, setCapacity] = useState("");
   const [model, setModel] = useState("");
   const [description, setDescription] = useState("");
-  const [images, setImages] = useState("");
-
+  const [vehicleImage, setVehicleImage] = useState("");
+  const [price, setPrice] = useState("");
+  const user = props.loggedInUser;
   // Navigate
   const navigate = useNavigate();
 
@@ -36,12 +37,30 @@ export default function AddNewVehicle() {
   };
 
   const handleSubmit = async (event) => {
-    // ToDo\
-    alert("called submit button");
+    event.preventDefault();
+    console.log("add vehicle");
+    console.log(props.loggedInUser);
+
+    if (true) {
+      const { data } = await axios.post(addVehicle, {
+        vehicleImage,
+        vehicleType,
+        description,
+        model,
+        capacity,
+        millage,
+        user,
+        price,
+      });
+      if (data.success === false) {
+        toast.error(data.msg, toastOptions);
+      }
+      if (data.success === true) {
+        toast.success(data.msg, toastOptions);
+        navigate("/seller");
+      }
+    }
   };
-  function onImageChange(e) {
-    setImages([...e.target.files]);
-  }
   return (
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={(event) => handleSubmit(event)}>
@@ -49,12 +68,13 @@ export default function AddNewVehicle() {
           <h3 className="Auth-form-title"> Add your Vehicle </h3>{" "}
           <div className="text-center"></div>{" "}
           <div className="form-group mt-3">
-            <label> Select Vehicle image </label>{" "}
+            <label>Vehicle image </label>{" "}
             <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={onImageChange}
+              type="text"
+              className="form-control mt-1"
+              placeholder="Image Url"
+              name="vehicleImage"
+              onChange={(e) => setVehicleImage(e.target.value)}
             />{" "}
           </div>{" "}
           <div className="form-group mt-3">
@@ -95,6 +115,16 @@ export default function AddNewVehicle() {
               placeholder="Engine Capacity"
               name="conPassword"
               onChange={(e) => setCapacity(e.target.value)}
+            />{" "}
+          </div>{" "}
+          <div className="form-group mt-3">
+            <label>Price(1 Hour) </label>{" "}
+            <input
+              type="text"
+              className="form-control mt-1"
+              placeholder="Price"
+              name="price"
+              onChange={(e) => setPrice(e.target.value)}
             />{" "}
           </div>{" "}
           <div className="form-group mt-3">
